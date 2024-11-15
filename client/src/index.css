@@ -1,0 +1,63 @@
+@font-face {
+  font-family: "Poppins-Regular";
+  src: url("/fonts/Poppins-Regular.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Poppins-Medium500";
+  src: url("/fonts/Poppins-Medium.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Poppins-SemiBold600";
+  src: url("/fonts/Poppins-SemiBold.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Poppins-Bold700";
+  src: url("/fonts/Poppins-Bold.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body {
+  @apply font-pRegular;
+  @apply text-fontColor;
+  @apply bg-bgColor;
+  margin: 0 auto;
+  padding: 0;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  max-width: 1920px;
+  /* width: fit-content; */
+}
+
+.app__container_lg {
+  padding: 50px 100px;
+  max-width: 100vw;
+  position: relative;
+  margin: 0;
+}
+
+.app__container_md {
+  padding: 25px 50px;
+  max-width: 100vw;
+  position: relative;
+}
+
+.app__container {
+  padding: 20px 30px;
+  max-width: 100vw;
+  position: relative;
+}
