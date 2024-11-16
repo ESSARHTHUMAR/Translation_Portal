@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  mode: 'jit',
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
@@ -14,9 +15,9 @@ export default {
       },
       fontFamily: {
         pRegular: ['Poppins-Regular'],
-        p500: ['Poppins-Medium500'],
-        p600: ['Poppins-SemiBold600'],
-        p700: ['Poppins-Bold700']
+        pMedium: ['Poppins-Medium500'],
+        pSemiBold: ['Poppins-SemiBold600'],
+        pBold: ['Poppins-Bold700']
       },
       fontSize: {
         '2xs': '0.875rem',

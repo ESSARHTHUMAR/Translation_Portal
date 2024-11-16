@@ -30,16 +30,15 @@
 @tailwind components;
 @tailwind utilities;
 
-
 body {
   @apply font-pRegular;
   @apply text-fontColor;
   @apply bg-bgColor;
-  margin: 0 auto;
+  margin: 0;
   padding: 0;
   scroll-behavior: smooth;
   overflow-x: hidden;
-  max-width: 1920px;
+  position: relative;
   /* width: fit-content; */
 }
 
