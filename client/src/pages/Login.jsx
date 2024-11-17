@@ -1,24 +1,31 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
+import {
+  signInStart,
+  signInSuccess,
+  singInFailed,
+} from "../redux/user/userSlice";
 
 const Login = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({});
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState();
-
-  console.log(formData);
+  // const [loading, setLoading] = useState(false);
+  // const [error, setError] = useState();
+  const dispatch = useDispatch(); //Send data to global store
+  const { loading, error } = useSelector((state) => state.user); //Fetch data fron the global store
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.id]: e.target.value,
     });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      setLoading(true);
+      dispatch(signInStart());
       const res = await fetch("/api/auth/signIn", {
         method: "POST",
         headers: {
@@ -29,26 +36,26 @@ const Login = () => {
 
       const data = await res.json();
       if (data.success === false) {
-        setLoading(false);
-        setError(data.message);
+        dispatch(singInFailed(data.message));
         return;
       }
-      setLoading(false);
-      setError(null);
-      navigate("/");
+      dispatch(signInSuccess(data));
+      if (data.role === "customer") {
+        navigate("/customer");
+      } else if (data.role === "admin") {
+        navigate("/admin");
+      }
     } catch (error) {
-      setLoading(false);
-      setError(error.message);
+      dispatch(singInFailed(error.message));
     }
   };
 
-
   useEffect(() => {
     const clearError = setTimeout(() => {
-      setError(null)
-    },10000)
-    return clearTimeout(() => clearError)
-  }, [error])
+      dispatch(singInFailed(null));
+    }, 10000);
+    return clearTimeout(() => clearError);
+  }, [error]);
 
   return (
     <div className="flex flex-col items-center justify-center relative h-screen">
