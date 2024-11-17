@@ -1,11 +1,18 @@
 import React from "react";
 import Button from "./Button";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { singOut } from "../redux/user/userSlice";
 
 const Navbar = () => {
   const { userdata } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
+  const handleSignOut = () => {
+    dispatch(singOut());
+    navigate("/")
+  }
   return (
     <div className="app__container bg-black">
       <div className="flex justify-between items-center">
@@ -18,7 +25,7 @@ const Navbar = () => {
         {userdata ? (
           <div className="flex flex-col items-center justify-center gap-1">
           <p className="text-bgSecondary font-pSemiBold text-lg bg-bgColor px-3 py-1">Welcome, {userdata?.username}</p>
-          <button className="uppercase bg-bgSecondary px-3 py-1 text-xs font-pMedium hover:opacity-80 transition-all duration-300">Sign out</button>
+          <button onClick={handleSignOut} className="uppercase bg-bgSecondary px-3 py-1 text-xs font-pMedium hover:opacity-80 transition-all duration-300">Sign out</button>
           </div>
         ) : (
           <div className="flex gap-10 items-center justify-center">

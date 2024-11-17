@@ -21,9 +21,12 @@ export const userSlice = createSlice({
         singInFailed: (state,action) => {
             state.loading = false;
             state.error = action.payload
+        },
+        singOut: (state,action) => {
+            state.userdata = null;
         }
     }
 })
 
-export const {signInStart, signInSuccess, singInFailed} = userSlice.actions;
+export const {signInStart, signInSuccess, singInFailed, singOut} = userSlice.actions;
 export default userSlice.reducer
