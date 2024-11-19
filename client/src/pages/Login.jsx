@@ -39,7 +39,7 @@ const Login = () => {
         dispatch(singInFailed(data.message));
         return;
       }
-      dispatch(signInSuccess(data));
+      dispatch(signInSuccess({...data, token: data.token}));
       if (data.role === "customer") {
         navigate("/customer");
       } else if (data.role === "admin") {
@@ -59,7 +59,7 @@ const Login = () => {
 
   return (
     <div className="flex flex-col items-center justify-center relative h-screen">
-      <div className="bg-black mx-auto p-10 relative rounded-lg w-[30vw]">
+      <div className="bg-black mx-auto p-10 relative rounded-lg w-[350px] md:w-[450px]">
         <h1 className="text-3xl uppercase font-pBold text-bgSecondary text-center">
           Login
         </h1>

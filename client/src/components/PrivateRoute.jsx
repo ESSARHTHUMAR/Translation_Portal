@@ -15,7 +15,8 @@ const PrivateRoute = ({ role, userRole }) => {
     return <Navigate to="/" />;
   }
 
-  //If user is logged in as well as roles are matching, relevant user data will be displayed.
+  //If user is logged in as well as roles are matching, 
+  //relevant user data will be displayed.
   return <Outlet />;
 };
 

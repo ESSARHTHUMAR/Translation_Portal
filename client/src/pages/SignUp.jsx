@@ -42,6 +42,18 @@ const SignUp = () => {
       const data = await res.json();
       if(data.success === false) {
         setLoading(false)
+        if(data.message === "User validation failed: username: Path `username` is required., email: Path `email` is required."){
+
+          setError("Please enter all the details.")
+        }
+        if(data.message === "User validation failed: email: Path `email` is required."){
+
+          setError("Please enter the email.")
+        }
+        if(data.message === "User validation failed: username: Path `username` is required."){
+
+          setError("Please enter the username.")
+        }
         setError(data.message)
         return;
       }
@@ -65,7 +77,7 @@ const SignUp = () => {
 
   return (
     <div className="flex flex-col items-center justify-center relative h-screen">
-      <div className="bg-black mx-auto p-10 relative rounded-lg w-[30vw]">
+      <div className="bg-black mx-auto p-10 relative rounded-lg w-[350px] md:w-[450px] ">
         <h1 className="text-3xl uppercase font-pBold text-bgSecondary text-center">
           Sign Up
         </h1>
@@ -78,6 +90,7 @@ const SignUp = () => {
               type="text"
               value={formData.username}
               id="username"
+              required
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -88,6 +101,7 @@ const SignUp = () => {
               type="email"
               value={formData.email}
               id="email"
+              required
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -98,6 +112,7 @@ const SignUp = () => {
               type="password"
               value={formData.password}
               id="password"
+              required
             />
           </div>
           <div className="flex flex-col gap-2">

@@ -1,15 +1,22 @@
 import express from "express"
 import mongoose from "mongoose"
 import dotenv from "dotenv"
+import cookieParser from "cookie-parser";
 import userRouter from "./routes/user.route.js";
-import authRouter from "./routes/auth.route.js"
+import authRouter from "./routes/auth.route.js";
+import fileRouter from "./routes/file.route.js"
+import cors from "cors";
+
+
 
 dotenv.config(); //to load enviornment variables from .env file
 
 const app = express(); //crate the instance for express
 const PORT = "3000"; //Declared the PORT on which backend will run
 
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(express.json())
+app.use(cookieParser()); // To parse cookies
 
 //Connect our backend with MongoDB database
 mongoose.connect(process.env.MONGODB).then(() => {
@@ -18,6 +25,7 @@ mongoose.connect(process.env.MONGODB).then(() => {
 
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter); //Authentication endpoint
+app.use("/api", fileRouter);
 
 //Handling errors using the Middleware
 app.use((err, req,res,next) => {
@@ -29,6 +37,7 @@ app.use((err, req,res,next) => {
         statusCode
     })
 })
+
 
 //Established the connection on PORT: 3000
 app.listen(PORT, (req,res) => {

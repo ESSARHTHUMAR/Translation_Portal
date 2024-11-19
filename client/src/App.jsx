@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import PrivateRoute from "./components/PrivateRoute";
 import { useSelector } from "react-redux";
+import UploadFile from "./components/UploadFile";
 
 function App() {
   const { userdata } = useSelector((state) => state.user);
@@ -18,9 +19,16 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route
+            // path="/customer/*"
             element={<PrivateRoute role="customer" userRole={userdata?.role} />}
           >
             <Route path="/customer" element={<Customer />} />
+          </Route>
+          <Route
+            // path="/customer/*"
+            element={<PrivateRoute role="customer" userRole={userdata?.role} />}
+          >
+            <Route path="/customer/upload" element={<UploadFile />} />
           </Route>
 
           <Route
