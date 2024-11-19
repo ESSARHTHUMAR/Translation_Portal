@@ -6,6 +6,7 @@ import userRouter from "./routes/user.route.js";
 import authRouter from "./routes/auth.route.js";
 import fileRouter from "./routes/file.route.js"
 import cors from "cors";
+import path from "path"
 
 
 
@@ -23,9 +24,17 @@ mongoose.connect(process.env.MONGODB).then(() => {
     console.log("Connected to MongoDB!");
 }).catch((error) => console.log(error.message))
 
+const __dirname = path.resolve()
+
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter); //Authentication endpoint
 app.use("/api", fileRouter);
+
+app.use(express.static(path.join(__dirname, '/client/dist')))
+
+app.get("*", (req,res) => {
+    res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'))
+})
 
 //Handling errors using the Middleware
 app.use((err, req,res,next) => {
